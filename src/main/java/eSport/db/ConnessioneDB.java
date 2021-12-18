@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class ConnessioneDB {
 	
 	private static final String HOST =  "jdbc:mysql://localhost:3306/";
-	private static final String DATABASE =  "jana46";
+	private static final String DATABASE =  "esport";
 	private static final String USERNAME =  "root";
 	private static final String PASSWORD =  "";
 	private static final String DRIVER =  "com.mysql.jdbc.Driver";

@@ -1,0 +1,72 @@
+h3 {
+	background-color: red
+}
+
+h1 {
+	background-color: fuchsia;
+	font-family: fantasy;
+	font-stretch: extra-expanded;
+}
+
+body {
+	background-color: black;
+}
+
+.maindiv {
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-top: 1%;
+	margin-bottom: auto;
+	padding-bottom: 300px;
+	background-size: contain;
+	background-image: url("C:\Users\Valentino\eclipse-workspace\v1.2\src\main\webapp\css\home2.gif");
+}
+
+.tabdiv {
+	
+}
+
+iframe {
+	
+}
+
+.col {
+	padding-top: 40px;
+	padding-left: 50px;
+	padding-right: 50px;
+	background: radial-gradient(circle, rgba(0, 0, 0, 0) 0%,
+		rgba(0, 0, 0, 0.49343487394957986) 0%);
+	width: auto;
+}
+
+.tw {
+	color: white;
+}
+
+.insert {
+	background-color: lime;
+	padding: 2px;
+	margin: 40px;
+}
+
+.border {
+	background-color: black;
+	padding: 10px;
+}
+
+.padding {
+	background-color: inherit;
+	padding: 3px;
+}
+
+.center {
+	text-align: center;
+}
+
+.red {
+	background-color: red;
+}
+
+.t {
+	background: transparent;
+}

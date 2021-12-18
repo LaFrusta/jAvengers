@@ -2,10 +2,41 @@ package eSport.db;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Punteggi {
+	
+	public static List<Punteggio> ReadAll() {
 
+		List<Punteggio> punteggi = new LinkedList<Punteggio>();
+
+		ConnessioneDB connessione = new ConnessioneDB();
+		try {
+			connessione.connect();
+
+			ResultSet set = connessione.executeQuery("Select * from risultati");
+
+			while (set.next()) {
+				int id = set.getInt("id");
+				int risultato = set.getInt("risultato");
+				Punteggio punteggio = new Punteggio(id, risultato);
+				punteggi.add(punteggio);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			punteggi = null;
+		}
+
+		connessione.close();
+
+		return punteggi;
+	}
+	
+	
+	
+	
+/*
 	public static HashMap<String, Integer> ReadAll(){
 		
 		HashMap<String, Integer> punteggi = new HashMap<String, Integer>();
@@ -31,4 +62,5 @@ public class Punteggi {
 		
 		return punteggi;
 	}
+	*/
 }

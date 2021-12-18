@@ -39,7 +39,7 @@ public class Utenti {
 				String nome_utente = set.getString("nome_utente");
 				String password = set.getString("password");
 
-				Utente utente = new Utente(id, nome_utente, password);
+				Utente utente = new Utente(nome_utente, password);
 				utenti.add(utente);
 
 			}
@@ -66,7 +66,7 @@ public class Utenti {
 				String nome_utente = set.getString("nome_utente");
 				String password = set.getString("password");
 				
-				utente = new Utente(id, nome_utente, password);
+				utente = new Utente(nome_utente, password);
 				
 			
 			}
@@ -86,7 +86,7 @@ public class Utenti {
 		
 		try {
 			connessione.connect();
-			connessione.executeUpdate("UPDATE utente SET " + "nome_utente= '" + utente.getNome_utente() + "', " + "password = '" + utente.getPassword() + "' " + "WHERE id = " + utente.getId() + "; ");
+			connessione.executeUpdate("UPDATE utente SET " + "nome_utente= '" + utente.getNome_utente() + "', " + "password = '" + utente.getPassword() + "' " + "WHERE nome_utente = " + utente.getNome_utente() + "; ");
 			connessione.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,7 +102,7 @@ public class Utenti {
 		try {
 			connessione.connect();
 			
-			done = connessione.executeUpdate("DELETE FROM utenti WHERE id = " + utente.getId());
+			done = connessione.executeUpdate("DELETE FROM utenti WHERE nome_utente = " + utente.getNome_utente());
 			
 			connessione.close();
 			done = true;

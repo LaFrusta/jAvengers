@@ -1,0 +1,59 @@
+.maindiv {
+	padding: 2px;
+margin-left:8%;
+	margin-right:8%;
+	margin-top:1%;
+	border: 2px solid black;
+	border-style:dotted;
+	background: radial-gradient(circle, rgba(0, 0, 0, 0) 0%,
+		rgba(0, 0, 0, 0.49343487394957986) 0%);
+}
+
+.padding {
+background-color: green;
+	padding:3px;
+}
+
+.padding2 {
+background-color: white;
+	padding:3px;
+}
+.padding3{
+background-color: red;
+	padding:3px;
+}
+
+.h1main {
+text-align: center;
+color: white;
+font-size: 60px;
+font-style: italic;
+font-family: sans-serif;
+}
+
+.sfondo {
+	background-image: url("back.gif");
+	background-size: cover;
+}
+
+h1 {
+	color: white;
+	font-family: minecraftia;
+	
+}
+
+span {
+	font-size: 60px;
+	
+
+}
+
+@font-face {
+	font-family: 'minecraftia';
+	src: local('minecraftia'), url('Minecraftia-Regular.ttf') format('truetype');
+}
+
+body {
+	font-family: minecraftia;
+	
+}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 17, 2021 alle 12:44
+-- Creato il: Dic 21, 2021 alle 09:33
 -- Versione del server: 10.4.22-MariaDB
 -- Versione PHP: 8.0.13
 
@@ -29,8 +29,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `risultati` (
   `id` int(11) NOT NULL,
+  `nome_utente` varchar(50) NOT NULL,
   `risultato` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `risultati`
+--
+
+INSERT INTO `risultati` (`id`, `nome_utente`, `risultato`) VALUES
+(4, 'gaetano_langella', 44),
+(5, 'valentino_aiello', 90),
+(6, 'danilo_spisto', 67);
 
 -- --------------------------------------------------------
 
@@ -73,17 +83,24 @@ ALTER TABLE `risultati`
 -- Indici per le tabelle `utenti`
 --
 ALTER TABLE `utenti`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nome_utente` (`nome_utente`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
+-- AUTO_INCREMENT per la tabella `risultati`
+--
+ALTER TABLE `risultati`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 public class ConnessioneDB {
 	
+	//Parametri di Configurazione
 	private static final String HOST =  "jdbc:mysql://localhost:3306/";
 	private static final String DATABASE =  "esport";
 	private static final String USERNAME =  "root";
@@ -45,4 +46,7 @@ public class ConnessioneDB {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 }

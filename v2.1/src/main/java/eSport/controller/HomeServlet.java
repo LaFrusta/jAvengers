@@ -2,6 +2,7 @@ package eSport.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -11,24 +12,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import eSport.model.ConnessioneDB;
-import eSport.view.RegistratiView;
+import eSport.model.Punteggi;
+import eSport.view.HomePageView;
 
 /**
- * Servlet implementation class RegistratiServlet
+ * Servlet implementation class HomeServlet
  */
-@WebServlet("/Registrati")
-public class RegistratiServlet extends HttpServlet {
+@WebServlet("/Homepage")
+public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		PrintWriter writer = response.getWriter();
+		ConnessioneDB connessione = new ConnessioneDB();
+		try {
+		connessione.connect();
+		ResultSet set = connessione.executeQuery("Select * from risultati");
+		HomePageView.homePageWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione), request.getParameter("nome_utente"),false);
 		
-			RegistratiView.registratiWriter(getServletContext(), writer);	
-		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		connessione.close();
+	
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -36,16 +48,17 @@ public class RegistratiServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		PrintWriter writer = response.getWriter();
-		
 		ConnessioneDB connessione = new ConnessioneDB();
-		
 		try {
-		
-			connessione.executeQuery("INSERT INTO `utenti` (`id`, `nome_utente`, `password`, `admin`) "
-					+ "VALUES (NULL, '"+(String)request.getAttribute("nome_utente")+"', '"+(String)request.getAttribute("password")+"', '0');");
+		connessione.connect();
+		ResultSet set = connessione.executeQuery("Select * from risultati");
+		HomePageView.homePageWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione), request.getParameter("nome_utente"),true);
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		connessione.close();
+	
 	}
+
 }

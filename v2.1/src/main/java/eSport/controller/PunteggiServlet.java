@@ -34,8 +34,24 @@ public class PunteggiServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		PrintWriter writer = response.getWriter();
+		
+		ConnessioneDB connessione = new ConnessioneDB();
+		
+		try { 
+		
+			connessione.connect();
+			
+			ResultSet set = connessione.executeQuery("Select * from risultati");
+			
+			PunteggiView.punteggiWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione));
+		
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+	
+		}
 	}
 
 	/**

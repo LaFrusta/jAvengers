@@ -29,25 +29,28 @@ public class HomeServlet extends HttpServlet {
 		
 		PrintWriter writer = response.getWriter();
 		ConnessioneDB connessione = new ConnessioneDB();
+		String nomeutente=request.getParameter("nome_utente");
 		try {
 		connessione.connect();
 		ResultSet set = connessione.executeQuery("Select * from risultati");
-	
+		
 		boolean logged=false;
 		
 		boolean admin = false;
 		
-		if(request.getParameter("nome_utente")!=null) {
+		if(nomeutente!=null) {
 			
 			logged = true;
 		
-			ResultSet view = connessione.executeQuery("SELECT `admin` FROM `utenti` WHERE `nome_utente` = '"+request.getParameter("nome_utente")+"';");
+			ResultSet view = connessione.executeQuery("SELECT admin FROM utenti WHERE nome_utente = "+nomeutente);
+			
 			view.next();
-			if(view.getInt("admin")==1) {
+			
+			if(view.getInt("admin")==0) {
 				admin = true;
 			}
 		}
-		HomePageView.homePageWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione), request.getParameter("nome_utente"), logged, admin);
+		HomePageView.homePageWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione), nomeutente, logged, admin);
 		
 		} catch (SQLException e) {
 			e.printStackTrace();

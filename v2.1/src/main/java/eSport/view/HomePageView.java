@@ -77,7 +77,6 @@ public class HomePageView {
 		HomePageView home = new HomePageView();
 		
 		home.writeHomePage("HomePage", punteggi, nome_utente, logged);
-		
 		Layout.doLayout(context, writer, home.getString(), nome_utente, logged, admin);
 	}
 }

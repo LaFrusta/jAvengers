@@ -48,14 +48,15 @@ public class PunteggiServlet extends HttpServlet {
 			boolean logged=false;
 			
 			boolean admin = false;
-			System.out.println(request.getParameter("nome_utente"));
+			
 			if(request.getParameter("nome_utente")!=null) {
 				
 				logged = true;
 			
 				ResultSet view = connessione.executeQuery("SELECT `admin` FROM `utenti` WHERE `nome_utente` = '"+request.getParameter("nome_utente")+"';");
 				view.next();
-				if(view.getInt("admin")==1) {
+				if(view.getBoolean("admin")==true) {
+					
 					admin = true;
 				}
 			}

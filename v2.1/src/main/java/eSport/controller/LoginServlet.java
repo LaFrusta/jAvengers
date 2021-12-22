@@ -62,14 +62,10 @@ public class LoginServlet extends HttpServlet {
 			}
 		} catch(SQLException e) {
 			
-			//System.out.println(request.getParameter("password"));
-			
 			String reload = "<meta http-equiv=\"refresh\" content=\"5;url=Login\" /><p id=\"countdown\" style=\"color:white;\" target=\"_self\">Nome utente inserito non valido!<br><p>Verrai reindirizzato tra 5 secondi, altrimenti <a href=\"Login\"><p>clicca qui!</p></a></p>\r\n";
 			Layout.doLayout(getServletContext(), writer, reload, null, false,false); 		
 			}
 	
-		//System.out.println(request.getParameter("password"));
-		
 		connessione.close();	
 		}
 

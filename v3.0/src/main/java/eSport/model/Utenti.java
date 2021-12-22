@@ -52,14 +52,14 @@ public class Utenti {
 	}
 	
 	
-	public static Utente ReadOne(int id) {
-		Utente utente = null;
+	public static Utente ReadOne(String target) {
+		Utente utente=new Utente("","");
 		
 		ConnessioneDB connessione = new ConnessioneDB();
 		
 		try {
 			connessione.connect();
-			ResultSet set = connessione.executeQuery("Select * from utenti where id=" + id);
+			ResultSet set = connessione.executeQuery("Select * from utenti where nome_utente='" + target+"'");
 			
 			if (set.next()) {
 				String nome_utente = set.getString("nome_utente");
@@ -78,22 +78,23 @@ public class Utenti {
 	}
 	
 	
-	public static boolean Update(Utente utente) {
+	public static boolean Update(Utente utente, String vecchio_nome_utente) {
 		
 		ConnessioneDB connessione = new ConnessioneDB();
 		boolean done=false;
 		
 		try {
 			connessione.connect();
-			connessione.executeUpdate("UPDATE utente SET " + "nome_utente= '" + utente.getNome_utente() + "', " + "password = '" + utente.getPassword() + "' " + "WHERE nome_utente = " + utente.getNome_utente() + "; ");
+			connessione.executeUpdate("UPDATE utenti SET " + "nome_utente= '" + utente.getNome_utente() + "', " + "password = '" + utente.getPassword() + "' " + "WHERE nome_utente = '" + vecchio_nome_utente + "' ");
 			connessione.close();
+			done = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return done;
 	}
 	
-	public static boolean Delete(Utente utente) {
+	public static boolean Delete(String target) {
 		
 		ConnessioneDB connessione = new ConnessioneDB();
 		boolean done=false;
@@ -101,7 +102,7 @@ public class Utenti {
 		try {
 			connessione.connect();
 			
-			done = connessione.executeUpdate("DELETE FROM utenti WHERE nome_utente = " + utente.getNome_utente());
+			done = connessione.executeUpdate("DELETE FROM utenti WHERE nome_utente = '" + target+"'");
 			
 			connessione.close();
 			done = true;

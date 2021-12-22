@@ -34,7 +34,7 @@ public class ConnessioneDB {
 	}
 
 	public boolean executeUpdate(String sql)throws SQLException { 
-		Statement st = connection.createStatement(); 
+		Statement st = connection.createStatement();
 		boolean done = st.execute(sql);
 		return done; 
 	}

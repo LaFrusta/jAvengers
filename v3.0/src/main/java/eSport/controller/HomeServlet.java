@@ -42,11 +42,11 @@ public class HomeServlet extends HttpServlet {
 			
 			logged = true;
 		
-			ResultSet view = connessione.executeQuery("SELECT admin FROM utenti WHERE nome_utente = "+nomeutente);
+			ResultSet view = connessione.executeQuery("SELECT admin FROM utenti WHERE nome_utente = '"+nomeutente+"'");
 			
 			view.next();
 			
-			if(view.getInt("admin")==0) {
+			if(view.getInt("admin")==1) {
 				admin = true;
 			}
 		}

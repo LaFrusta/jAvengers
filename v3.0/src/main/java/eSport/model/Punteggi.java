@@ -21,9 +21,6 @@ public class Punteggi {
 		List<Punteggio> punteggi=new LinkedList<>();
 		
 		try {
-			
-		connessione.connect();	
-		
 		
 		while(set.next()) {
 			
@@ -34,7 +31,6 @@ public class Punteggi {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		connessione.close();
 		return punteggi;
 	}
 	

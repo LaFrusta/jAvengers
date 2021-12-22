@@ -27,8 +27,8 @@ public class PunteggiView {
 		writer.write("<table>");
 		
 		for(Punteggio punteggio : punteggi) {
-			writer.write("<tr style = \"border: 1px solid black;\"><td style = \"border: 1px solid black;\">"+punteggio.getNomeUtente()+"</td>"
-					+ "<td  style = \"border: 1px solid black;\"> "+punteggio.getRisultato()+"</td></tr>");
+			writer.write("<tr><td>"+punteggio.getNomeUtente()+"</td>"
+					+ "<td> "+punteggio.getRisultato()+"</td></tr>");
 		}
 		writer.write("</table>");
 	}
@@ -37,12 +37,12 @@ public class PunteggiView {
 		return writer.toString();
 	}
 	
-	public static void punteggiWriter(ServletContext context, PrintWriter writer, List<Punteggio> punteggi) {
+	public static void punteggiWriter(ServletContext context, PrintWriter writer, List<Punteggio> punteggi, String nome_utente, boolean logged, boolean admin) {
 		
 		PunteggiView points = new PunteggiView();
 		
 		points.writePunteggi(punteggi);
 		
-		Layout.doLayout(context, writer, points.getString());
+		Layout.doLayout(context, writer, points.getString(), nome_utente, logged, admin);
 	}
 }

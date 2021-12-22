@@ -44,6 +44,6 @@ private StringWriter writer;
 		
 		view.writeRegistrati();
 		
-		Layout.doLayout(context, writer, view.getString());
+		Layout.doLayout(context, writer, view.getString(), null, false, false);
 	}
 }

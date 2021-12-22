@@ -50,13 +50,13 @@ public class HomePage {
 		return writer.toString();
 	}
 	
-	public static void homePageWriter(ServletContext context, PrintWriter writer, List<Punteggio> punteggi) {
+	public static void homePageWriter(ServletContext context, PrintWriter writer, List<Punteggio> punteggi, String nome_utente, boolean logged, boolean admin) {
 		
 		HomePage home = new HomePage();
 		
 		home.writeHomePage("HomePage", punteggi);
 		
-		Layout.doLayout(context, writer, home.getString());
+		Layout.doLayout(context, writer, home.getString(), nome_utente, logged, admin);
 	}
 }
 

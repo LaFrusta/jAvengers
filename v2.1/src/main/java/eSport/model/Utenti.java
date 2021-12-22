@@ -34,7 +34,7 @@ public class Utenti {
 			ResultSet set = connessione.executeQuery("Select * from utenti");
 
 			while (set.next()) {
-				int id = set.getInt("id");
+
 				String nome_utente = set.getString("nome_utente");
 				String password = set.getString("password");
 

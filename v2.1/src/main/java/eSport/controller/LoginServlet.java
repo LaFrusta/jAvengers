@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 		
 		PrintWriter writer = response.getWriter();
 		
-		LoginView.loginWriter(getServletContext(), writer);
+		LoginView.loginWriter(getServletContext(), writer, null, false, false);
 
 	}
 
@@ -38,30 +38,38 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		PrintWriter writer = response.getWriter();
 
 		ConnessioneDB connessione = new ConnessioneDB();
 		
 		ResultSet set;
+		
 		try { 
 			connessione.connect();
 			
-			set = connessione.executeQuery("select nome_utente,password from utenti where nome_utente = "+request.getParameter("nome_utente"));
-			
+			set = connessione.executeQuery("select nome_utente,password, admin from utenti where nome_utente = '"+request.getParameter("nome_utente")+"';");
+
 			set.next();
 			
 			Utente utente = new Utente(request.getParameter("nome_utente"),request.getParameter("password"));
+			boolean admin=false;
 			
-			if(utente.getPassword().equals(request.getParameter("password"))) {
-				String reload = "<meta http-equiv=\"refresh\" content=\"5;url=Homepage\" /><p id=\"countdown\" style=\"color:white;\" target=\"_self\">Accesso effettuato correttamente!<br><p>Verrai reindirizzato tra 5 secondi, altrimenti <a href=\"HomePage\"><p>clicca qui!</p></a></p>\r\n";
-				Layout.doLayout(getServletContext(), writer, reload); 
+			if(set.getInt("admin")==1) admin=true;
+			if(utente.getPassword().equals(set.getString("password"))) {
+				String reload = "<meta http-equiv=\"refresh\" content=\"5;url=Homepage?nome_utente="+utente.getNome_utente()+"\" /><p id=\"countdown\" style=\"color:white;\" target=\"_self\">Accesso effettuato correttamente!<br><p>Verrai reindirizzato tra 5 secondi, altrimenti <a href=\"Homepage?nome_utente="+utente.getNome_utente()+"\" method=\"post\"><p>clicca qui!</p></a></p>\r\n";
+				Layout.doLayout(getServletContext(), writer, reload, utente.getNome_utente(),true, admin); 
 			}
 		} catch(SQLException e) {
 			
+			//System.out.println(request.getParameter("password"));
+			
 			String reload = "<meta http-equiv=\"refresh\" content=\"5;url=Login\" /><p id=\"countdown\" style=\"color:white;\" target=\"_self\">Nome utente inserito non valido!<br><p>Verrai reindirizzato tra 5 secondi, altrimenti <a href=\"Login\"><p>clicca qui!</p></a></p>\r\n";
-			Layout.doLayout(getServletContext(), writer, reload); 		
+			Layout.doLayout(getServletContext(), writer, reload, null, false,false); 		
 			}
+	
+		//System.out.println(request.getParameter("password"));
+		
 		connessione.close();	
 		}
 

@@ -38,12 +38,12 @@ public class LoginView {
 		
 	}
 	
-	public static void loginWriter(ServletContext context, PrintWriter writer) {
+	public static void loginWriter(ServletContext context, PrintWriter writer, String nome_utente, boolean logged, boolean admin) {
 		
 		LoginView view = new LoginView();
 		
 		view.writeLogin();
 		
-		Layout.doLayout(context, writer, view.getString());
+		Layout.doLayout(context, writer, view.getString(), nome_utente, logged, admin);
 	}
 }

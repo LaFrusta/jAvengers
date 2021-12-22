@@ -45,7 +45,22 @@ public class PunteggiServlet extends HttpServlet {
 			
 			ResultSet set = connessione.executeQuery("Select * from risultati");
 			
-			PunteggiView.punteggiWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione));
+			boolean logged=false;
+			
+			boolean admin = false;
+			System.out.println(request.getParameter("nome_utente"));
+			if(request.getParameter("nome_utente")!=null) {
+				
+				logged = true;
+			
+				ResultSet view = connessione.executeQuery("SELECT `admin` FROM `utenti` WHERE `nome_utente` = '"+request.getParameter("nome_utente")+"';");
+				view.next();
+				if(view.getInt("admin")==1) {
+					admin = true;
+				}
+			}
+			
+			PunteggiView.punteggiWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione), request.getParameter("nome_utente"), logged, admin);
 		
 		} catch (SQLException e) {
 		
@@ -59,23 +74,6 @@ public class PunteggiServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		PrintWriter writer = response.getWriter();
-		
-		ConnessioneDB connessione = new ConnessioneDB();
-		
-		try { 
-		
-			connessione.connect();
-			
-			ResultSet set = connessione.executeQuery("Select * from risultati");
-			
-			PunteggiView.punteggiWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione));
-		
-		} catch (SQLException e) {
-		
-			e.printStackTrace();
-	
-		}
 	}
 
 }

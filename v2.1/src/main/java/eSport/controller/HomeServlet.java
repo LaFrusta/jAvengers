@@ -32,7 +32,22 @@ public class HomeServlet extends HttpServlet {
 		try {
 		connessione.connect();
 		ResultSet set = connessione.executeQuery("Select * from risultati");
-		HomePageView.homePageWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione), request.getParameter("nome_utente"),false);
+	
+		boolean logged=false;
+		
+		boolean admin = false;
+		
+		if(request.getParameter("nome_utente")!=null) {
+			
+			logged = true;
+		
+			ResultSet view = connessione.executeQuery("SELECT `admin` FROM `utenti` WHERE `nome_utente` = '"+request.getParameter("nome_utente")+"';");
+			view.next();
+			if(view.getInt("admin")==1) {
+				admin = true;
+			}
+		}
+		HomePageView.homePageWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione), request.getParameter("nome_utente"), logged, admin);
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -47,17 +62,6 @@ public class HomeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		PrintWriter writer = response.getWriter();
-		ConnessioneDB connessione = new ConnessioneDB();
-		try {
-		connessione.connect();
-		ResultSet set = connessione.executeQuery("Select * from risultati");
-		HomePageView.homePageWriter(getServletContext(), writer, Punteggi.getPunteggi(set, connessione), request.getParameter("nome_utente"),true);
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		connessione.close();
 	
 	}
 
